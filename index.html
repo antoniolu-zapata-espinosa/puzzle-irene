@@ -7,9 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#e6f2ff;--card:#fff;--ink:#1d2a4d;--accent:#ff5c8a;--line:rgba(29,42,77,.22);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101a33;--card:#1c2a52;--ink:#eaf1ff;--accent:#ff7aa2;--line:rgba(234,241,255,.25);color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#101a33;--card:#1c2a52;--ink:#eaf1ff;--accent:#ff7aa2;--line:rgba(234,241,255,.25);color-scheme:dark}
+:root{--bg:radial-gradient(circle,rgba(255,255,255,.6) 0 3px,transparent 4px) 0 0/38px 38px,linear-gradient(160deg,#ffd6e8,#ffe9c7 55%,#cdeeff);--card:#fff;--ink:#1d2a4d;--accent:#7c4dff;--onacc:#fff;--line:rgba(29,42,77,.22);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:radial-gradient(circle,rgba(255,255,255,.07) 0 3px,transparent 4px) 0 0/38px 38px,linear-gradient(160deg,#2a1457,#14214d 60%,#0d3a52);--card:#1c2a52;--ink:#eaf1ff;--accent:#b39bff;--onacc:#1a0b3a;--line:rgba(234,241,255,.25);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:radial-gradient(circle,rgba(255,255,255,.07) 0 3px,transparent 4px) 0 0/38px 38px,linear-gradient(160deg,#2a1457,#14214d 60%,#0d3a52);--card:#1c2a52;--ink:#eaf1ff;--accent:#b39bff;--onacc:#1a0b3a;--line:rgba(234,241,255,.25);color-scheme:dark}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;overflow:hidden}
 @supports (height:100dvh){html,body{height:100dvh}}
@@ -20,13 +20,13 @@ body{background:var(--bg);color:var(--ink);font:700 16px/1.3 Nunito,ui-rounded,s
 #prev{width:120px;aspect-ratio:6/5;object-fit:cover;border-radius:10px;border:3px solid var(--card);flex:none}
 #ctl{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
 #ctl .row{display:flex;gap:6px;flex-wrap:wrap}
-button{font:inherit;font-weight:800;border:0;border-radius:999px;padding:7px 12px;background:var(--accent);color:#1d0a14;cursor:pointer}
+button{font:inherit;font-weight:800;border:0;border-radius:999px;padding:7px 12px;background:var(--accent);color:var(--onacc);cursor:pointer}
 button.alt{background:var(--card);color:var(--ink)}
 button:focus-visible,.th:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 #gal{display:flex;gap:6px;overflow-x:auto;padding:4px 4px 6px 0}
 .th{position:relative;flex:none;width:52px;height:44px;border-radius:8px;border:3px solid transparent;background-size:cover;background-position:center;cursor:pointer}
 .th.on{border-color:var(--accent)}
-.th b{position:absolute;top:-8px;right:-8px;width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:13px;line-height:20px;text-align:center}
+.th b{position:absolute;top:-8px;right:-8px;width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--card);font-size:13px;line-height:20px;text-align:center}
 #tray{flex:1;min-height:0;overflow:auto;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;padding:8px;background:var(--card);border-radius:14px}
 #main{display:flex;align-items:center;justify-content:center;min-width:0}
 #board{position:relative;aspect-ratio:6/5;width:min(100%,calc((100vh - 40px)*1.2));width:min(100%,calc((100dvh - 40px)*1.2));border-radius:12px;overflow:hidden;background:linear-gradient(to right,var(--line) 1px,transparent 1px) 0 0/16.6667% 100%,linear-gradient(to bottom,var(--line) 1px,transparent 1px) 0 0/100% 20%,var(--card);outline:3px solid var(--ink)}
@@ -40,6 +40,8 @@ button:focus-visible,.th:focus-visible{outline:3px solid var(--ink);outline-offs
 @keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 #win{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(10,15,40,.6);z-index:100;padding:20px}
 #win.on{display:flex}
+#win.on .box{animation:pop .5s}
+#conf{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:110}
 #win .box{background:var(--card);border-radius:20px;padding:26px;text-align:center;max-width:340px}
 #win h2{margin:0 0 6px;font-size:28px}
 #win .row{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap}
@@ -61,6 +63,7 @@ button:focus-visible,.th:focus-visible{outline:3px solid var(--ink);outline-offs
      <button id="add">＋ Fotos</button>
      <button id="help" class="alt">Ayuda</button>
      <button id="again" class="alt">Mezclar</button>
+     <button id="mus" class="alt" aria-pressed="false">🎵 Música</button>
     </div>
     <div id="gal" role="list"></div>
    </div>
@@ -69,7 +72,8 @@ button:focus-visible,.th:focus-visible{outline:3px solid var(--ink);outline-offs
  </div>
  <div id="main"><div id="board"><div id="ghost"></div></div></div>
 </div>
-<div id="win"><div class="box"><h2>¡Lo has conseguido! 🎉</h2><div>Puzzle completado</div><div class="row"><button id="next">Siguiente imagen</button><button id="rep" class="alt">Repetir</button></div></div></div>
+<canvas id="conf"></canvas>
+<div id="win"><div class="box"><h2>¡Enhorabuena! 🎉</h2><div>¡Has completado el puzzle!</div><div class="row"><button id="next">Siguiente imagen</button><button id="rep" class="alt">Repetir</button></div></div></div>
 <input id="file" type="file" accept="image/*" multiple hidden>
 <script>
 const C=6,R=5,N=C*R,$=id=>document.getElementById(id);
@@ -114,7 +118,7 @@ function gallery(){
 function sizeCells(){app.style.setProperty('--cw',(board.clientWidth/C)+'px')}
 function build(){
  refresh();if(cur>=all.length)cur=0;
- board.querySelectorAll('.piece').forEach(p=>p.remove());tray.innerHTML='';placed=0;$('win').classList.remove('on');
+ board.querySelectorAll('.piece').forEach(p=>p.remove());tray.innerHTML='';placed=0;$('win').classList.remove('on');stopConf();
  app.style.setProperty('--img','url('+all[cur].src+')');
  $('prev').src=all[cur].src;sizeCells();gallery();
  const order=[...Array(N).keys()];
@@ -145,11 +149,44 @@ function up(e){
  const tx=r.left+(col+.5)*cw,ty=r.top+(row+.5)*cw;
  if(Math.hypot(e.clientX-tx,e.clientY-ty)<cw*.65){
   p.classList.add('placed');p.style.left=(col*100/C)+'%';p.style.top=(row*100/R)+'%';board.append(p);fitTray();
-  if(++placed===N)setTimeout(()=>$('win').classList.add('on'),450);
+  if(++placed===N)setTimeout(win,450);
  }else if(e.type==='pointerup'){
   p.classList.add('bad');setTimeout(()=>p.classList.remove('bad'),320);
  }
 }
+
+const cv=$('conf'),cx=cv.getContext('2d');let parts=[],raf=0;
+function stopConf(){cancelAnimationFrame(raf);parts=[];cx.clearRect(0,0,cv.width,cv.height)}
+function confetti(){
+ stopConf();cv.width=innerWidth;cv.height=innerHeight;
+ const cols=['#ff4d6d','#ffd23f','#3bceac','#4cc9f0','#7c4dff','#ff9f1c'],n=matchMedia('(prefers-reduced-motion:reduce)').matches?40:170;
+ const add=()=>{for(let i=0;i<n;i++)parts.push({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.6,w:6+Math.random()*8,h:10+Math.random()*10,vx:(Math.random()-.5)*3,vy:2+Math.random()*4,a:Math.random()*6,va:(Math.random()-.5)*.3,c:cols[i%cols.length]})};
+ add();setTimeout(add,1500);
+ const t0=performance.now();
+ (function f(t){cx.clearRect(0,0,cv.width,cv.height);
+  parts=parts.filter(p=>p.y<cv.height+30);
+  parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.a+=p.va;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-p.h/2,p.w,p.h);cx.restore()});
+  if(parts.length||t-t0<1700)raf=requestAnimationFrame(f)})(t0);
+}
+function win(){
+ $('win').classList.add('on');confetti();
+ if(mon&&ac)[523.25,659.25,783.99,1046.5].forEach((f,i)=>tone(f,ac.currentTime+i*.14,.5,'square',.1));
+}
+
+let ac=null,master=null,mon=false,mt=0,mi=0,timer=0;
+const MEL=[523.25,659.25,783.99,659.25,880,783.99,659.25,587.33,523.25,659.25,783.99,1046.5,880,783.99,659.25,587.33,440,523.25,659.25,523.25,587.33,659.25,587.33,523.25,392,493.88,587.33,493.88,523.25,0,0,0];
+const BASS=[130.81,130.81,110,98];
+function tone(f,t,d,type,v){const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(master);o.start(t);o.stop(t+d+.05)}
+function sched(){while(mt<ac.currentTime+.4){const s=mi%32,st=.24;if(MEL[s])tone(MEL[s],mt,st*1.6,'triangle',.16);if(s%4===0)tone(BASS[Math.floor(s/8)],mt,st*3.5,'sine',.2);mt+=st;mi++}}
+$('mus').onclick=()=>{
+ try{
+  if(!ac){ac=new(window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=.5;master.connect(ac.destination)}
+  mon=!mon;
+  if(mon){ac.resume();mt=ac.currentTime+.05;mi=0;timer=setInterval(sched,100)}else clearInterval(timer);
+  $('mus').textContent=mon?'🔇 Silenciar':'🎵 Música';$('mus').setAttribute('aria-pressed',mon);
+ }catch(e){}
+};
+document.addEventListener('visibilitychange',()=>{if(!ac||!mon)return;if(document.hidden)ac.suspend();else ac.resume()});
 
 $('add').onclick=()=>$('file').click();
 $('file').onchange=async e=>{
